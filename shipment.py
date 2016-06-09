@@ -3,7 +3,7 @@
     shipment.py
 
 """
-from trytond.model import fields, ModelView, ModelSQL
+from trytond.model import fields, ModelView, ModelSQL, Workflow
 from trytond.pool import PoolMeta, Pool
 from trytond.wizard import Wizard, StateView, Button, StateTransition
 from trytond.pyson import Eval, Or, Bool, Id
@@ -717,6 +717,7 @@ class ShipmentTracking(ModelSQL, ModelView):
 
     @classmethod
     @ModelView.button
+    @Workflow.transition('cancelled')
     def cancel_tracking_number_button(cls, tracking_numbers):
         """
         Cancel tracking numbers
